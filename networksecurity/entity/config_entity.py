@@ -1,12 +1,7 @@
 from datetime import datetime
 import os
-
 from networksecurity.constant import training_pipeline
 
-
-# ==============================
-# Training Pipeline Config
-# ==============================
 
 class TrainingPipelineConfig:
 
@@ -18,10 +13,6 @@ class TrainingPipelineConfig:
         self.artifact_dir = os.path.join(self.artifact_name, timestamp) 
         self.timestamp: str = timestamp
 
-
-# ==============================
-# Data Ingestion Config
-# ==============================
 
 class DataIngestionConfig:
 
@@ -73,3 +64,68 @@ class DataIngestionConfig:
         self.database_name: str = (
             training_pipeline.DATA_INGESTION_DATABASE_NAME
         )
+
+
+class DataValidationConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+
+        # ==============================
+        # Base Directory
+        # ==============================
+        self.data_validation_dir = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline.DATA_VALIDATION_DIR_NAME
+        )
+
+        # ==============================
+        # Valid Data Directory
+        # ==============================
+        self.valid_data_dir = os.path.join(
+            self.data_validation_dir,
+            training_pipeline.DATA_VALIDATION_VALID_DIR
+        )
+
+        # ==============================
+        # Invalid Data Directory
+        # ==============================
+        self.invalid_data_dir = os.path.join(
+            self.data_validation_dir,
+            training_pipeline.DATA_VALIDATION_INVALID_DIR
+        )
+
+        # ==============================
+        # Valid Train/Test Files
+        # ==============================
+        self.valid_train_file_path = os.path.join(
+            self.valid_data_dir,
+            training_pipeline.TRAIN_FILE_NAME
+        )
+
+        self.valid_test_file_path = os.path.join(
+            self.valid_data_dir,
+            training_pipeline.TEST_FILE_NAME
+        )
+
+        # ==============================
+        # Invalid Train/Test Files
+        # ==============================
+        self.invalid_train_file_path = os.path.join(
+            self.invalid_data_dir,
+            training_pipeline.TRAIN_FILE_NAME
+        )
+
+        self.invalid_test_file_path = os.path.join(
+            self.invalid_data_dir,
+            training_pipeline.TEST_FILE_NAME
+        )
+
+        # ==============================
+        # Drift Report Path
+        # ==============================
+        self.drift_report_file_path = os.path.join(
+            self.data_validation_dir,
+            training_pipeline.DATA_VALIDATION_DRIFT_REPORT_DIR,
+            training_pipeline.DATA_VALIDATION_DRIFT_REPORT_FILE_NAME
+        )
+
+        
