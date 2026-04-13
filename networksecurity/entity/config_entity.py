@@ -129,3 +129,42 @@ class DataValidationConfig:
         )
 
         
+class DataTransformationConfig:
+
+    def __init__(self, training_pipeline_config):
+
+        # Base Transformation Directory
+        self.data_transformation_dir: str = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline.DATA_TRANSFORMATION_DIR_NAME
+        )
+
+        # Transformed Data Directory
+        self.transformed_data_dir: str = os.path.join(
+            self.data_transformation_dir,
+            training_pipeline.DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR
+        )
+
+        # Transformed Object Directory
+        self.transformed_object_dir: str = os.path.join(
+            self.data_transformation_dir,
+            training_pipeline.DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR
+        )
+
+        # Train File Path (.npy) 
+        self.transformed_train_file_path: str = os.path.join(
+            self.transformed_data_dir,
+            training_pipeline.TRAIN_FILE_NAME.replace("csv", "npy")
+        )
+
+        # Test File Path (.npy)
+        self.transformed_test_file_path: str = os.path.join(
+            self.transformed_data_dir,
+            training_pipeline.TEST_FILE_NAME.replace("csv", "npy")
+        )
+
+        # Preprocessing Object Path
+        self.transformed_object_file_path: str = os.path.join(
+            self.transformed_object_dir,
+            training_pipeline.PREPROCESSING_OBJECT_FILE_NAME
+        )
