@@ -5,6 +5,8 @@ import os, sys
 import numpy as np
 # import dill
 import pickle
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import accuracy_score
 
 def read_yaml_file(file_path: str) -> dict:
     """
@@ -64,6 +66,68 @@ def save_object(file_path: str, obj: object):
         with open(file_path, "wb") as file_obj:
             pickle.dump(obj, file_obj)
         logging.info("Exited the save_object method in Mainutils class")
-        
+
     except Exception as e:
         raise Exception(f"Error saving object: {e}")    
+
+
+def load_object(file_path: str) -> object:
+    try:
+        if not os.path.exists(file_path):
+            raise Exception(f"The file: {file_path} does not exist")
+
+        with open(file_path, "rb") as file_obj:
+            print(file_obj)
+            return pickle.load(file_obj)
+
+    except Exception as e:
+        raise NetworkSecurityException(e, sys)
+
+def load_numpy_array_data(file_path: str) -> np.ndarray:
+    """
+    Load numpy array data from file
+    Args:
+        file_path (str): Location of file to load
+    Returns:
+        np.ndarray: Loaded numpy array
+    """
+    try:
+        if not os.path.exists(file_path):
+            raise Exception(f"The file: {file_path} does not exist")
+
+        with open(file_path, "rb") as file_obj:
+            return np.load(file_obj)
+
+    except Exception as e:
+        raise NetworkSecurityException(e, sys)    
+    
+def evaluate_models(X_train, y_train, X_test, y_test, models, params):
+    try:
+        report = {}
+
+        for model_name, model in models.items():
+
+            # Correct param access
+            param_grid = params.get(model_name, {})
+
+            # GridSearch only if params exist
+            if param_grid:
+                gs = GridSearchCV(model, param_grid, cv=3)
+                gs.fit(X_train, y_train)
+                model.set_params(**gs.best_params_)
+
+            # Train
+            model.fit(X_train, y_train)
+
+            # Predict
+            y_test_pred = model.predict(X_test)
+
+            # Score (classification)
+            test_score = accuracy_score(y_test, y_test_pred)
+
+            report[model_name] = test_score
+
+        return report
+
+    except Exception as e:
+        raise NetworkSecurityException(e, sys)

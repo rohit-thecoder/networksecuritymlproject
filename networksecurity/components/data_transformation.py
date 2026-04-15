@@ -20,6 +20,7 @@ class DataTransformation:
             self.data_transformation_config: DataTransformation=data_transformation_config
         except Exception as e:
             raise NetworkSecurityException(e, sys)
+        
     @staticmethod
     def read_data(file_path) -> pd.DataFrame:
         try:
