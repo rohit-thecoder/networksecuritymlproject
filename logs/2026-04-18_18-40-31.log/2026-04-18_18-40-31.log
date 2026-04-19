@@ -1,0 +1,6 @@
+[2026-04-18 18:40:39,632] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-04-18 18:40:39,650] 107 dagshub - INFO - Accessing as rohit-thecoder
+[2026-04-18 18:40:41,512] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/rohit-thecoder/networksecuritymlproject "HTTP/1.1 200 OK"
+[2026-04-18 18:40:43,367] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-04-18 18:40:43,372] 107 dagshub - INFO - Initialized MLflow to track repo "rohit-thecoder/networksecuritymlproject"
+[2026-04-18 18:40:43,382] 107 dagshub - INFO - Repository rohit-thecoder/networksecuritymlproject initialized!
